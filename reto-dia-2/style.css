@@ -1,7 +1,7 @@
 body, fieldset, form {
   display: flex;
   flex-direction: column;
-  justify-content: top;
+  justify-content: center;
   align-items: center;
 }
 label {
@@ -11,11 +11,43 @@ label {
   align-items: center;
 }
 section {
-  width: 60%;
-}
-fieldset {  
-  width: 100%;
+  width: 80%;
 }
 header {
   text-align: center;
+}
+body {
+  background-color: white;
+}
+header, input[type=button] {
+  background-color: crimson;
+  color: white;
+}
+legend {
+  color: crimson;
+}
+fieldset {
+  margin: 0;
+  padding: 1rem;
+  width: 100%;
+  border-color: crimson;
+}
+input[type=button] {
+  border: none;
+  box-shadow: none;
+  margin-top: 1rem;
+  width: 100%;
+  padding: 2rem;
+  font-size: 2rem;
+}
+
+h1 {
+    font-weight: 700;
+}
+input[type=number]{
+  border: none;
+  background-color: gainsboro;
+  width: 40%;
+  text-align: end;
+  margin: 1rem 0.5rem;
 }
