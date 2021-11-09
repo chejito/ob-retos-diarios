@@ -1,0 +1,15 @@
+body, fieldset, form, label {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+}
+section {
+  width: 60%;
+}
+fieldset {  
+  width: 100%;
+}
+header {
+  text-align: center;
+}
