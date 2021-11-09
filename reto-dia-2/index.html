@@ -15,31 +15,35 @@
     <form action="">
       <fieldset>
         <legend>
-          <h2>Datos:</h2>
+          <h2>Información</h2>
         </legend>
         <label>
-          Cantidad (€):
+          Cantidad
           <input type="number" name="cantidadHipoteca" id="cantidadHipoteca" 
           min="50000" max="1000000" value="50000" step="5000" autofocus required>
+          €
         </label>        
         <label>
-          Número de cuotas (meses):
+          Número de cuotas
           <input type="number" name="numeroCuotas" id="numeroCuotas" 
           min="60" max="600" value="60"step="12" required>
+          Meses
         </label>       
         <label>
-          Tipo de interés (%):
+          Tipo de interés
           <input type="number" name="tipoInteres" id="tipoInteres" 
           min="0" max="15" value="0"step="0.1"required>
+          %
         </label>
       </fieldset>
       <fieldset>
         <legend>
-          <h2>Pagarás cada mes:</h2>
+          <h2>Pagarás cada mes</h2>
         </legend>
         <label>
-          Cuota (€):
+          Cuota:
           <input type="number" name="cuotaMensual" id="cuotaMensual" disabled></output>
+          €
         </label>
       </fieldset>
       <input type="button" value="Calcular" onclick="calcular()">

@@ -1,6 +1,12 @@
-body, fieldset, form, label {
+body, fieldset, form {
   display: flex;
   flex-direction: column;
+  justify-content: top;
+  align-items: center;
+}
+label {
+  display: flex;
+  flex-direction: row;
   justify-content: top;
   align-items: center;
 }
