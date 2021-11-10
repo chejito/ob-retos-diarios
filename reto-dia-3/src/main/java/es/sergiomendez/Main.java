@@ -30,7 +30,7 @@ public class Main {
                 
                 Nombre por campos:
                 ------------------""");
-        
+
         System.out.println("Nombre: " + nombrePila);
 
         if (!Objects.equals(apellido1, null)) {
