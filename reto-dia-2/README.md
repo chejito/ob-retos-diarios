@@ -6,4 +6,4 @@
 
 * Consideraciones: Debemos poder probar el ejercicio, ya sea con jsfiddle, stackblitz o publicado en algún sitio.
 
-## Desplegado en https://chejito.github.io/calculadora-hipoteca-ob/
+### Desplegado en https://chejito.github.io/calculadora-hipoteca-ob/
