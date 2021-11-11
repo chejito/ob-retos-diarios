@@ -12,6 +12,7 @@ open class Usuario (
         sesionIniciada = true
     }
 
+
     open fun logout() {
         println("Usuario \"$nombreCompleto\" ha cerrado sesión")
         sesionIniciada = false
