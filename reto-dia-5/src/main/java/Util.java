@@ -1,5 +1,3 @@
-package es.sergiomendez;
-
 public class Util {
 
     static public Integer[] stringToArray(String text) {
