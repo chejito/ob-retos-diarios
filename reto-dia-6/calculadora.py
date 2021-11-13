@@ -4,9 +4,12 @@ import util as dno
 def devolver_resultado(cadena_a_procesar):
     lista_a_procesar = cadena_a_procesar.split(" ")
     lista_limpia = limpiar_lista(lista_a_procesar)
+    # print(lista_limpia)
 
     try:
         primera_operacion = lista_limpia[0]
+        if not dno.lista_operaciones.__contains__(primera_operacion):
+            raise KeyError
         primer_operando = dno.diccionario_numeros[lista_limpia[1]]
         segundo_operando = dno.diccionario_numeros[lista_limpia[2]]
 
@@ -15,27 +18,26 @@ def devolver_resultado(cadena_a_procesar):
         if type(resultado) == str:
             return resultado
 
+        if len(lista_limpia) == 4 or len(lista_limpia) > 5:
+            raise ValueError
         if len(lista_limpia) == 5:
-            try:
-                segunda_operacion = lista_limpia[3]
-                tercer_operando = dno.diccionario_numeros[lista_limpia[4]]
 
-                if segunda_operacion == "resta":
-                    resultado2 = obtener_resultado(tercer_operando, segunda_operacion, resultado)
-                else:
-                    resultado2 = obtener_resultado(resultado, segunda_operacion, tercer_operando)
+            segunda_operacion = lista_limpia[3]
+            if not dno.lista_operaciones.__contains__(segunda_operacion):
+                raise KeyError
+            tercer_operando = dno.diccionario_numeros[lista_limpia[4]]
 
-                if type(resultado2) == str:
-                    return resultado2
+            if segunda_operacion == "resta":
+                resultado2 = obtener_resultado(tercer_operando, segunda_operacion, resultado)
+            else:
+                resultado2 = obtener_resultado(resultado, segunda_operacion, tercer_operando)
 
-                resultado2_string = str(resultado2)
-                resultado_texto2 = devolver_resultado_texto(resultado2_string)
-                return "Resultado: " + resultado_texto2 + " (" + resultado2_string + ")"
-            except KeyError:
-                palabras_clave = ', '.join(list(dno.diccionario_numeros.keys()))
-                print("Error: Alguna palabra no está entre las palabras clave válidas")
-                print("Palabras clave aceptadas: " + palabras_clave)
-                return "No se ha realizado la operación"
+            if type(resultado2) == str:
+                return resultado2
+
+            resultado2_string = str(resultado2)
+            resultado_texto2 = devolver_resultado_texto(resultado2_string)
+            return "Resultado: " + resultado_texto2 + " (" + resultado2_string + ")"
 
         resultado_string = str(resultado)
         resultado_texto = devolver_resultado_texto(resultado_string)
@@ -47,6 +49,9 @@ def devolver_resultado(cadena_a_procesar):
         return "No se ha realizado la operación"
     except IndexError:
         print("Error: Faltan palabras en la expresión para poder completar la operación")
+        return "No se ha realizado la operación"
+    except ValueError:
+        print("Error: Demasiados operandos y/o pocas operaciones")
         return "No se ha realizado la operación"
 
 
@@ -64,7 +69,7 @@ def devolver_resultado_texto(resultado_string):
 
 def obtener_resultado(operando1, operacion, operando2):
     try:
-        if operacion == "resta" or operacion == "restar" or operacion == "restale" or operacion == "réstale" :
+        if operacion == "resta" or operacion == "restar" or operacion == "restale" or operacion == "réstale":
             resultado = operando2 - operando1
         else:
             if operacion == "suma" or operacion == "sumar" or operacion == "sumale" or operacion == "súmale":
