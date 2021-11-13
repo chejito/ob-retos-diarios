@@ -4,7 +4,6 @@ import util as dno
 def devolver_resultado(cadena_a_procesar):
     lista_a_procesar = cadena_a_procesar.split(" ")
     lista_limpia = limpiar_lista(lista_a_procesar)
-    print(lista_limpia)
 
     try:
         primera_operacion = lista_limpia[0]
