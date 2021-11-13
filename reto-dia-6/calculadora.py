@@ -4,6 +4,7 @@ import util as dno
 def devolver_resultado(cadena_a_procesar):
     lista_a_procesar = cadena_a_procesar.split(" ")
     lista_limpia = limpiar_lista(lista_a_procesar)
+    print(lista_limpia)
 
     try:
         primera_operacion = lista_limpia[0]
@@ -16,20 +17,26 @@ def devolver_resultado(cadena_a_procesar):
             return resultado
 
         if len(lista_limpia) == 5:
-            segunda_operacion = lista_limpia[3]
-            tercer_operando = dno.diccionario_numeros[lista_limpia[4]]
+            try:
+                segunda_operacion = lista_limpia[3]
+                tercer_operando = dno.diccionario_numeros[lista_limpia[4]]
 
-            if segunda_operacion == "resta":
-                resultado2 = obtener_resultado(tercer_operando, segunda_operacion, resultado)
-            else:
-                resultado2 = obtener_resultado(resultado, segunda_operacion, tercer_operando)
+                if segunda_operacion == "resta":
+                    resultado2 = obtener_resultado(tercer_operando, segunda_operacion, resultado)
+                else:
+                    resultado2 = obtener_resultado(resultado, segunda_operacion, tercer_operando)
 
-            if type(resultado2) == str:
-                return resultado2
+                if type(resultado2) == str:
+                    return resultado2
 
-            resultado2_string = str(resultado2)
-            resultado_texto2 = devolver_resultado_texto(resultado2_string)
-            return "Resultado: " + resultado_texto2 + " (" + resultado2_string + ")"
+                resultado2_string = str(resultado2)
+                resultado_texto2 = devolver_resultado_texto(resultado2_string)
+                return "Resultado: " + resultado_texto2 + " (" + resultado2_string + ")"
+            except KeyError:
+                palabras_clave = ', '.join(list(dno.diccionario_numeros.keys()))
+                print("Error: Alguna palabra no está entre las palabras clave válidas")
+                print("Palabras clave aceptadas: " + palabras_clave)
+                return "No se ha realizado la operación"
 
         resultado_string = str(resultado)
         resultado_texto = devolver_resultado_texto(resultado_string)
@@ -78,10 +85,11 @@ def obtener_resultado(operando1, operacion, operando2):
 
 def limpiar_lista(lista_a_procesar):
     lista_a_devolver = []
+    operaciones = dno.lista_operaciones
+    numeros = dno.diccionario_numeros.keys()
     for palabra in lista_a_procesar:
-        if dno.lista_conjunciones.__contains__(palabra):
-            continue
-        lista_a_devolver.append(palabra)
+        if operaciones.__contains__(palabra) or numeros.__contains__(palabra):
+            lista_a_devolver.append(palabra)
     return lista_a_devolver
 
 

@@ -30,6 +30,3 @@ lista_operaciones = [
     "divídelo",
 ]
 
-lista_conjunciones = (
-    "a", "con", "de", "entre", "por", "y"
-)
