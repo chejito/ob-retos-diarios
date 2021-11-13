@@ -8,7 +8,7 @@ def calculadora():
     while cadena_a_procesar != "":
         resultado = devolver_resultado(cadena_a_procesar)
         print(resultado)
-        cadena_a_procesar = input("Introduce una operacion (Ejemplo: suma dos y tres) o pulsa enter para salir:\n")
+        cadena_a_procesar = input("Introduce una operacion o pulsa enter para salir:\n")
 
 
 if __name__ == '__main__':
