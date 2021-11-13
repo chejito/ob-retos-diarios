@@ -48,19 +48,23 @@ def devolver_resultado_texto(resultado_string):
     resultado_texto = ""
     diccionario_num = dno.diccionario_numeros
     for numero in resultado_string:
-        numero_entero = int(numero)
-        resultado_texto += obtener_key(numero_entero, diccionario_num)
+        if numero == "-":
+            resultado_texto += "menos"
+        else:
+            numero_entero = int(numero)
+            resultado_texto += obtener_key(numero_entero, diccionario_num)
     return resultado_texto
 
 
 def obtener_resultado(operando1, operacion, operando2):
     try:
-        if operacion == "resta" or operacion == "restale" or operacion == "réstale":
+        if operacion == "resta" or operacion == "restar" or operacion == "restale" or operacion == "réstale" :
             resultado = operando2 - operando1
         else:
-            if operacion == "suma" or operacion == "sumale" or operacion == "súmale":
+            if operacion == "suma" or operacion == "sumar" or operacion == "sumale" or operacion == "súmale":
                 resultado = operando1 + operando2
-            elif operacion == "multiplica" or operacion == "multiplicalo" or operacion == "multiplícalo":
+            elif operacion == "multiplica" or "multiplicar" or operacion == "multiplicalo" or \
+                    operacion == "multiplícalo":
                 resultado = operando1 * operando2
             else:
                 resultado = operando1 // operando2

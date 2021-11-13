@@ -13,15 +13,19 @@ diccionario_numeros = {
 
 lista_operaciones = [
     "suma",
+    "sumar",
     "sumale",
     "súmale",
     "resta",
+    "restar",
     "restale",
     "réstale",
     "multiplica",
+    "multiplicar",
     "multiplicalo",
     "multiplícalo",
     "divide",
+    "dividir",
     "dividelo",
     "divídelo",
 ]
