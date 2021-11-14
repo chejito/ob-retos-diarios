@@ -28,19 +28,19 @@ object Main {
         println(s"\nNombre: $nombre - Password: $password")
         val errorCredenciales: String = "No tienes un nombre de usuario y/o password"
         nombre match {
-          case null => println(errorCredenciales)
-          case "" => println(errorCredenciales)
+          case null | "" => println(errorCredenciales)
           case _ => password match {
-            case null => println(errorCredenciales)
-            case "" => println(errorCredenciales)
+            case null | "" => println(errorCredenciales)
             case _ => println(s"Bienvenid@ a OpenVitae, $nombre")
           }
         }
 
       case Administrador(nombre, _, _, nivel) =>
         println(s"\nNombre: $nombre - Nivel: $nivel")
-        if (nivel < 2) println("Tu nivel es insuficiente")
-        else println("Tu nivel es el correcto")
+        nivel match {
+        case  x if x < 2 => println("Tu nivel es insuficiente")
+        case _ => println("Tu nivel es el correcto")
+      }
     }
 
   }
