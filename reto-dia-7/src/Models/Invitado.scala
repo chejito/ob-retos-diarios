@@ -1,5 +1,8 @@
 package Models
 
-class Invitado(nombre: String, apellidos: String, email: String) extends Usuario(nombre, apellidos, email){
-
-}
+case class Invitado(
+                     nombre: String,
+                     password: String,
+                     email: String,
+                     var limiteSesion: Int
+                   ) extends Usuario(nombre, password, email)

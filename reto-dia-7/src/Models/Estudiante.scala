@@ -1,8 +1,11 @@
 package Models
 
-class Estudiante(nombre: String,
-                 apellidos: String,
-                 email: String,
-                 var cursos: Set[String],
-                 var proyectos: Set[String]
-                ) extends Usuario(nombre, apellidos, email)  {}
+case class Estudiante(
+                       nombre: String,
+                       password: String,
+                       email: String,
+                       cursos: Set[String],
+                       proyectos: Set[String]
+                     ) extends Usuario(nombre, password, email)  {
+
+}

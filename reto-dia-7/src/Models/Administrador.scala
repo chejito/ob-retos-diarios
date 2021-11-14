@@ -1,6 +1,10 @@
 package Models
 
-class Administrador (nombre: String,
-                     apellidos: String,
-                     email: String,
-                     var nivel: Int) extends Usuario(nombre, apellidos, email){}
+case class Administrador (
+                           nombre: String,
+                           password: String,
+                           email: String,
+                           var nivel: Int
+                         ) extends Usuario(nombre, password, email){
+
+}
