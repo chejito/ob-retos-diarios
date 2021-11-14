@@ -9,7 +9,7 @@ object Main {
     val estudiante2 = Estudiante(null, "passwordEstudiante2", "estudiante2@ejemplo.com",
       Set("JavaScript", "HTML/CSS", "React"), Set("proyectoFrontEndOfertas", "proyectoRetosDiarios"))
 
-    val estudiante3 = Estudiante("estudiante3", null, "estudiante3@ejemplo.com",
+    val estudiante3 = Estudiante("estudiante3", "", "estudiante3@ejemplo.com",
       Set("JavaScript", "HTML/CSS", "React"), Set("proyectoFrontEndOfertas"))
 
     val invitado1 = Invitado("invitado1", "passwordInvitado1", "invitado1@ejemplo.com", 1800000)
@@ -29,14 +29,23 @@ object Main {
 
       case Estudiante(nombre, password, _, _, _) =>
         println(s"\nNombre: $nombre - Password: $password")
-        if (nombre != null && password != null)
-          println(s"Bienvenid@ a OpenVitae, $nombre")
-        else println("No tienes un nombre y/o password")
+        if (estaVacio(nombre) || estaVacio(password))
+          println("No tienes un nombre y/o password")
+        else println(s"Bienvenid@ a OpenVitae, $nombre")
 
       case Administrador(nombre, _, _, nivel) =>
         println(s"\nNombre: $nombre - Nivel: $nivel")
         if (nivel < 2) println("Tu nivel es insuficiente")
         else println("Tu nivel es el correcto")
+    }
+
+  }
+
+  def estaVacio(texto: String): Boolean = {
+    texto match {
+      case null => true
+      case "" => true
+      case _ => false
     }
 
   }
