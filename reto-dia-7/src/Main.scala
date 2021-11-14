@@ -38,7 +38,7 @@ object Main {
       case Administrador(nombre, _, _, nivel) =>
         println(s"\nNombre: $nombre - Nivel: $nivel")
         nivel match {
-        case  x if x < 2 => println("Tu nivel es insuficiente")
+        case x if x < 2 => println("Tu nivel es insuficiente")
         case _ => println("Tu nivel es el correcto")
       }
     }
