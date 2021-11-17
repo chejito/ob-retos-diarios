@@ -23,6 +23,7 @@ public class Comando {
 
                     System.out.println("SubComandos excesivos y/o no válidos");
                 }
+
                 case "cd" -> {
                     if (terminosComando.length == 2) {
                         String subdirectorio = terminosComando[1];
@@ -34,6 +35,7 @@ public class Comando {
                     System.out.println("Número de argumentos incorrecto, " +
                             "sólo puede haber un subdirectorio y no puede estar vacío");
                 }
+
                 case "pwd" -> Directorio.imprimirDirectorioActual();
             }
         } else {
