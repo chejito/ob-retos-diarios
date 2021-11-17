@@ -20,8 +20,8 @@ public class Comando {
                         Directorio.obtenerListadoContenido("extendida");
                         break;
                     }
-                    System.out.println("SubComandos excesivos y/o no válidos");
 
+                    System.out.println("SubComandos excesivos y/o no válidos");
                 }
                 case "cd" -> {
                     if (terminosComando.length == 2) {
