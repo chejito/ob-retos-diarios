@@ -27,7 +27,7 @@ public class Comando {
                 case "cd" -> {
                     if (terminosComando.length == 2) {
                         String subdirectorio = terminosComando[1];
-                        System.out.println("Subdirectorio: " + subdirectorio);
+                        System.out.println("Directorio: " + subdirectorio);
                         Directorio.cambiarAlSubdirectorio(subdirectorio);
                         break;
                     }
