@@ -30,6 +30,7 @@ public class Comando {
                         Directorio.cambiarAlSubdirectorio(subdirectorio);
                         break;
                     }
+
                     System.out.println("Número de argumentos incorrecto, " +
                             "sólo puede haber un subdirectorio y no puede estar vacío");
                 }
