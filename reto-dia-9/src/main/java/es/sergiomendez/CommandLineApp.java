@@ -91,7 +91,11 @@ public class CommandLineApp {
         boolean subdirectorioExiste = false;
 
         if (Objects.equals(subDirectorio, "..")) {
-            ejecutarCambioDirectorio("/");
+            if (esWindowsOS) {
+                ejecutarCambioDirectorio("\\");
+            } else {
+                ejecutarCambioDirectorio("/");
+            }
         } else {
             for (File file : listadoCarpetas) {
                 if (file.getName().equals(subDirectorio)) {
@@ -127,25 +131,21 @@ public class CommandLineApp {
         File carpetaActual = obtenerDirectorioActual();
         File[] listadoContenido = carpetaActual.listFiles();
 
-
         if (listadoContenido != null){
+            System.out.println("\nContenido: ");
             if (tipo.equals("extendida")) {
-                System.out.println("\n1 - Contenido: ");
-
                 for (File elemento : listadoContenido)  {
                     if (elemento.isDirectory()) {
                         System.out.println("Nombre: " + elemento.getName()
                                 + " \t\t\tTamaño en bytes: " + elemento.length()
-                                + " \t\tFecha de creación: " + obtenerFechaCreación(elemento));
+                                + " \t\tFecha de creación: " + obtenerFechaCreacion(elemento));
                     } else {
                         System.out.println("Nombre: " + elemento.getName()
                                 + " \t\tTamaño en bytes: " + elemento.length()
-                                + " \t\tFecha de creación: " + obtenerFechaCreación(elemento));
+                                + " \t\tFecha de creación: " + obtenerFechaCreacion(elemento));
                     }
-
                 }
             } else {
-                System.out.println("\n1 - Contenido: ");
                 for (File elemento : listadoContenido) {
                     System.out.print(elemento.getName() + " ");
                 }
@@ -155,7 +155,7 @@ public class CommandLineApp {
         }
     }
 
-    private static String obtenerFechaCreación(File elemento) {
+    private static String obtenerFechaCreacion(File elemento) {
         Path archivo = Paths.get(elemento.getAbsolutePath());
         try {
             BasicFileAttributes atributos = Files.readAttributes(archivo, BasicFileAttributes.class);
