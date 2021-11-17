@@ -26,14 +26,14 @@ public class Comando {
 
                 case "cd" -> {
                     if (terminosComando.length == 2) {
-                        String subdirectorio = terminosComando[1];
-                        System.out.println("Directorio: " + subdirectorio);
-                        Directorio.cambiarAlSubdirectorio(subdirectorio);
+                        String directorio = terminosComando[1];
+                        System.out.println("Directorio: " + directorio);
+                        Directorio.cambiarElDirectorio(directorio);
                         break;
                     }
 
                     System.out.println("Número de argumentos incorrecto, " +
-                            "sólo puede haber un subdirectorio y no puede estar vacío");
+                            "sólo puede haber un directorio y no puede estar vacío");
                 }
 
                 case "pwd" -> Directorio.imprimirDirectorioActual();

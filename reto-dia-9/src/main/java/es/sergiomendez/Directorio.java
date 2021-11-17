@@ -46,7 +46,7 @@ public class Directorio {
         return new File(directorioActual);
     }
 
-    static void cambiarAlSubdirectorio(String nuevoDirectorio) {
+    static void cambiarElDirectorio(String nuevoDirectorio) {
         File carpetaActual = obtenerDirectorioActual();
         final String OS = System.getProperty("os.name").toLowerCase();
         boolean esWindowsOS = OS.contains("windows");
