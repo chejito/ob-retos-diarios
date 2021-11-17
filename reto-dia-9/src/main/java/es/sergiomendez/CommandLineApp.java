@@ -46,10 +46,10 @@ public class CommandLineApp {
             switch (primerTermino) {
                 case "ls" -> {
                     if (terminosComando.length == 1) {
-                        obtenerListadoCarpetasYFicheros("normal");
+                        obtenerListadoContenido("normal");
                         break;
                     } else if (terminosComando.length == 2 && terminosComando[1].equals("-l")) {
-                        obtenerListadoCarpetasYFicheros("extendida");
+                        obtenerListadoContenido("extendida");
                         break;
                     }
                     System.out.println("SubComandos excesivos y/o no válidos");
@@ -62,7 +62,8 @@ public class CommandLineApp {
                         cambiarAlSubdirectorio(subdirectorio);
                         break;
                     }
-                    System.out.println("Número de argumentos incorrecto, sólo puede haber un subdirectorio y no puede estar vacío");
+                    System.out.println("Número de argumentos incorrecto, " +
+                            "sólo puede haber un subdirectorio y no puede estar vacío");
                 }
                 case "pwd" -> imprimirDirectorioActual();
             }
@@ -83,14 +84,15 @@ public class CommandLineApp {
         return new File(directorioActual);
     }
 
-    private static void cambiarAlSubdirectorio(String subDirectorio) {
+    private static void cambiarAlSubdirectorio(String nuevoDirectorio) {
         File carpetaActual = obtenerDirectorioActual();
         final String OS = System.getProperty("os.name").toLowerCase();
         boolean esWindowsOS = OS.contains("windows");
-        List<File> listadoCarpetas = new ArrayList<>(Arrays.asList(Objects.requireNonNull(carpetaActual.listFiles(File::isDirectory))));
-        boolean subdirectorioExiste = false;
+        List<File> listadoCarpetas = new ArrayList<>(Arrays.asList(Objects
+                .requireNonNull(carpetaActual.listFiles(File::isDirectory))));
+        boolean directorioExiste = false;
 
-        if (Objects.equals(subDirectorio, "..")) {
+        if (Objects.equals(nuevoDirectorio, "..")) {
             if (esWindowsOS) {
                 ejecutarCambioDirectorio("\\");
             } else {
@@ -98,22 +100,22 @@ public class CommandLineApp {
             }
         } else {
             for (File file : listadoCarpetas) {
-                if (file.getName().equals(subDirectorio)) {
-                    subdirectorioExiste = true;
+                if (file.getName().equals(nuevoDirectorio)) {
+                    directorioExiste = true;
                 }
             }
 
-            if (subdirectorioExiste) {
+            if (directorioExiste) {
                 System.out.println("El subdirectorio existe.");
 
                 if (esWindowsOS) {
-                    subDirectorio = System.getProperty("user.dir") + "\\" +subDirectorio;
-                    System.out.println(subDirectorio);
+                    nuevoDirectorio = System.getProperty("user.dir") + "\\" + nuevoDirectorio;
+                    System.out.println(nuevoDirectorio);
 
                 } else {
-                    subDirectorio = System.getProperty("user.dir") + "/" +subDirectorio;
+                    nuevoDirectorio = System.getProperty("user.dir") + "/" + nuevoDirectorio;
                 }
-                ejecutarCambioDirectorio(subDirectorio);
+                ejecutarCambioDirectorio(nuevoDirectorio);
             } else {
                 System.out.println("El subdirectorio NO existe.");
                 System.out.println("No se ha ejecutado el comando.");
@@ -121,13 +123,17 @@ public class CommandLineApp {
         }
     }
 
-    private static void ejecutarCambioDirectorio(String subDirectorio) {
-        System.setProperty("user.dir", subDirectorio);
-        System.out.println("Cambiamos al directorio " + subDirectorio);
+    private static void ejecutarCambioDirectorio(String directorio) {
+        System.setProperty("user.dir", directorio);
+        if (directorio.equals("/") || directorio.equals("\\") ) {
+            System.out.println("Cambiamos al directorio raíz");
+        } else {
+            System.out.println("Cambiamos al directorio " + directorio);
+        }
         imprimirDirectorioActual();
     }
 
-    private static void obtenerListadoCarpetasYFicheros(String tipo) {
+    private static void obtenerListadoContenido(String tipo) {
         File carpetaActual = obtenerDirectorioActual();
         File[] listadoContenido = carpetaActual.listFiles();
 
