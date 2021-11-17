@@ -33,6 +33,7 @@ public class CommandLineApp {
         } while (runApp);
 
         System.out.println("Tecla \"Enter\" pulsada.\nFinalizando la aplicación. ¡Hasta pronto!");
+        scanner.close();
     }
 
     private static void comprobarComando(String comando) {
