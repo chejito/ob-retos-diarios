@@ -1,23 +1,19 @@
 package es.sergiomendez;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.FileTime;
 import java.util.*;
 
 public class CommandLineApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        boolean runApp = true;
 
         System.out.println("Bienvenido a la aplicación de ficheros y directorios.");
-
-        boolean runApp = true;
         System.out.println("""
                 ¿Qué desea hacer ahora?
                     - "ls": Muestra todos los ficheros y carpetas del directorio.
@@ -118,7 +114,6 @@ public class CommandLineApp {
                 System.out.println("No se ha ejecutado el comando.");
             }
         }
-
     }
 
     private static void ejecutarCambioDirectorio(String subDirectorio) {
@@ -147,7 +142,6 @@ public class CommandLineApp {
                                 + " \t\tFecha de creación: " + obtenerFechaCreación(elemento));
                     }
 
-
                 }
             } else {
                 System.out.println("\n1 - Contenido: ");
@@ -168,7 +162,5 @@ public class CommandLineApp {
         } catch (IOException e) {
             return "No se ha encontrado el archivo";
         }
-
     }
-
 }
