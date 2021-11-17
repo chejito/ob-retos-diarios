@@ -1,6 +1,13 @@
 package es.sergiomendez;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.*;
 
 public class CommandLineApp {
@@ -29,7 +36,7 @@ public class CommandLineApp {
 
         } while (runApp);
 
-        System.out.println("Finalizando la aplicación. ¡Hasta pronto!");
+        System.out.println("Tecla \"Enter\" pulsada.\nFinalizando la aplicación. ¡Hasta pronto!");
     }
 
     private static void comprobarComando(String comando) {
@@ -38,9 +45,19 @@ public class CommandLineApp {
         String primerTermino = terminosComando[0];
 
         if (comandosValidos.contains(primerTermino)) {
-            System.out.println("Comando introducido: " + primerTermino);
+            System.out.println("\nComando introducido: " + primerTermino);
             switch (primerTermino) {
-                case "ls" -> obtenerListadoCarpetasYFicheros();
+                case "ls" -> {
+                    if (terminosComando.length == 1) {
+                        obtenerListadoCarpetasYFicheros("normal");
+                        break;
+                    } else if (terminosComando.length == 2 && terminosComando[1].equals("-l")) {
+                        obtenerListadoCarpetasYFicheros("extendida");
+                        break;
+                    }
+                    System.out.println("SubComandos excesivos y/o no válidos");
+
+                }
                 case "cd" -> {
                     if (terminosComando.length == 2) {
                         String subdirectorio = terminosComando[1];
@@ -76,49 +93,82 @@ public class CommandLineApp {
         List<File> listadoCarpetas = new ArrayList<>(Arrays.asList(Objects.requireNonNull(carpetaActual.listFiles(File::isDirectory))));
         boolean subdirectorioExiste = false;
 
-        for (File file : listadoCarpetas) {
-            if (file.getName().equals(subDirectorio)) {
-                subdirectorioExiste = true;
+        if (Objects.equals(subDirectorio, "..")) {
+            ejecutarCambioDirectorio("/");
+        } else {
+            for (File file : listadoCarpetas) {
+                if (file.getName().equals(subDirectorio)) {
+                    subdirectorioExiste = true;
+                }
+            }
+
+            if (subdirectorioExiste) {
+                System.out.println("El subdirectorio existe.");
+
+                if (esWindowsOS) {
+                    subDirectorio = System.getProperty("user.dir") + "\\" +subDirectorio;
+                    System.out.println(subDirectorio);
+
+                } else {
+                    subDirectorio = System.getProperty("user.dir") + "/" +subDirectorio;
+                }
+                ejecutarCambioDirectorio(subDirectorio);
+            } else {
+                System.out.println("El subdirectorio NO existe.");
+                System.out.println("No se ha ejecutado el comando.");
             }
         }
 
-        if (subdirectorioExiste) {
-            System.out.println("El subdirectorio existe.");
+    }
 
-            if (esWindowsOS) {
-                subDirectorio = System.getProperty("user.dir") + "\\" +subDirectorio;
-                System.out.println(subDirectorio);
+    private static void ejecutarCambioDirectorio(String subDirectorio) {
+        System.setProperty("user.dir", subDirectorio);
+        System.out.println("Cambiamos al directorio " + subDirectorio);
+        imprimirDirectorioActual();
+    }
 
+    private static void obtenerListadoCarpetasYFicheros(String tipo) {
+        File carpetaActual = obtenerDirectorioActual();
+        File[] listadoContenido = carpetaActual.listFiles();
+
+
+        if (listadoContenido != null){
+            if (tipo.equals("extendida")) {
+                System.out.println("\n1 - Contenido: ");
+
+                for (File elemento : listadoContenido)  {
+                    if (elemento.isDirectory()) {
+                        System.out.println("Nombre: " + elemento.getName()
+                                + " \t\t\tTamaño en bytes: " + elemento.length()
+                                + " \t\tFecha de creación: " + obtenerFechaCreación(elemento));
+                    } else {
+                        System.out.println("Nombre: " + elemento.getName()
+                                + " \t\tTamaño en bytes: " + elemento.length()
+                                + " \t\tFecha de creación: " + obtenerFechaCreación(elemento));
+                    }
+
+
+                }
             } else {
-                subDirectorio = System.getProperty("user.dir") + "/" +subDirectorio;
+                System.out.println("\n1 - Contenido: ");
+                for (File elemento : listadoContenido) {
+                    System.out.print(elemento.getName() + " ");
+                }
             }
-            System.setProperty("user.dir", subDirectorio);
-            System.out.println("Cambiamos al directorio " + subDirectorio);
-            imprimirDirectorioActual();
-        } else {
-            System.out.println("El subdirectorio NO existe.");
-            System.out.println("No se ha ejecutado el comando.");
+
+            System.out.println();
         }
     }
 
-    private static void obtenerListadoCarpetasYFicheros() {
-        File carpetaActual = obtenerDirectorioActual();
-        File[] listadoCarpetasYFicheros = carpetaActual.listFiles();
-
-        if (listadoCarpetasYFicheros != null){
-            System.out.println("1 - Carpetas: ");
-            for (File elemento : listadoCarpetasYFicheros)  {
-                if (elemento.isDirectory()) {
-                    System.out.println(elemento.getName());
-                }
-            }
-            System.out.println("2 - Ficheros: ");
-            for (File elemento : listadoCarpetasYFicheros)  {
-                if (elemento.isFile()) {
-                    System.out.println(elemento.getName());
-                }
-            }
+    private static String obtenerFechaCreación(File elemento) {
+        Path archivo = Paths.get(elemento.getAbsolutePath());
+        try {
+            BasicFileAttributes atributos = Files.readAttributes(archivo, BasicFileAttributes.class);
+            return atributos.creationTime().toString();
+        } catch (IOException e) {
+            return "No se ha encontrado el archivo";
         }
+
     }
 
 }
