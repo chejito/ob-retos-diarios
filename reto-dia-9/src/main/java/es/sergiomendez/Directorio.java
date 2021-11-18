@@ -77,6 +77,7 @@ public class Directorio {
                 } else {
                     nuevoDirectorio = System.getProperty("user.dir") + "/" + nuevoDirectorio;
                 }
+
                 ejecutarCambioDirectorio(nuevoDirectorio);
             } else {
                 System.out.println("El subdirectorio NO existe.");
