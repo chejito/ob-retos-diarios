@@ -88,16 +88,19 @@ public class Directorio {
 
     private static void ejecutarCambioDirectorio(String directorio) {
         System.setProperty("user.dir", directorio);
+
         if (directorio.equals("/") || directorio.equals("\\") ) {
             System.out.println("Cambiamos al directorio raíz");
         } else {
             System.out.println("Cambiamos al directorio " + directorio);
         }
+
         imprimirDirectorioActual();
     }
 
     static String obtenerFechaCreacion(File elemento) {
         Path archivo = Paths.get(elemento.getAbsolutePath());
+
         try {
             BasicFileAttributes atributos = Files.readAttributes(archivo, BasicFileAttributes.class);
             return atributos.creationTime().toString();
@@ -108,7 +111,6 @@ public class Directorio {
 
     static void imprimirDirectorioActual() {
         File carpetaActual = obtenerDirectorioActual();
-
         System.out.println("Directorio actual: " + carpetaActual);
     }
 }
