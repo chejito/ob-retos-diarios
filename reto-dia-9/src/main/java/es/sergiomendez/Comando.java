@@ -17,6 +17,7 @@ public class Comando {
                         Directorio.obtenerListadoContenido("normal");
                         break;
                     } else if (terminosComando.length == 2 && terminosComando[1].equals("-l")) {
+                        System.out.println("Subcomando introducido: " + terminosComando[1]);
                         Directorio.obtenerListadoContenido("extendida");
                         break;
                     }

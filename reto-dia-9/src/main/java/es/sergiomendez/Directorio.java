@@ -15,20 +15,17 @@ public class Directorio {
     static void obtenerListadoContenido(String tipo) {
         File carpetaActual = obtenerDirectorioActual();
         File[] listadoContenido = carpetaActual.listFiles();
+        String format = "%-25s %-25s %-50s\n";
 
         if (listadoContenido != null){
-            System.out.println("\nContenido: ");
             if (tipo.equals("extendida")) {
-                for (File elemento : listadoContenido)  {
-                    if (elemento.isDirectory()) {
-                        System.out.println("Nombre: " + elemento.getName()
-                                + " \t\t\tTamaño en bytes: " + elemento.length()
-                                + " \t\tFecha de creación: " + obtenerFechaCreacion(elemento));
-                    } else {
-                        System.out.println("Nombre: " + elemento.getName()
-                                + " \t\tTamaño en bytes: " + elemento.length()
-                                + " \t\tFecha de creación: " + obtenerFechaCreacion(elemento));
-                    }
+                System.out.format(format, "Nombre de archivo", "Tamaño en bytes", "Fecha de creación");
+                for (File elemento : listadoContenido) {
+                    String parte1 = elemento.getName();
+                    String parte2 = "" + elemento.length();
+                    String parte3 = obtenerFechaCreacion(elemento);
+
+                    System.out.format(format, parte1, parte2, parte3);
                 }
             } else {
                 for (File elemento : listadoContenido) {
